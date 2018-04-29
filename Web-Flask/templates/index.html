@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Traffic HCMUT</title>
+        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript" src="static/js/map_x.js"></script>
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <link rel="stylesheet" media="screen" href ="static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="static/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            .collapse{
+                border: 2px solid ; 
+                padding: 20px; 
+                margin-left: 30px;
+                margin-right: 50px;
+                margin-bottom: 5px;
+                margin-top: 10px;
+            }
+            
+        </style>
+    </head>
+    <body>
+       
+       <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapseExample">Simple collapsible</button>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if "Error" not in message[1]: %}
+                            <div class="alert alert-info">
+                                <strong>Success! </strong> {{ message[1] }}
+                            </div>
+                        {% endif %}
+                        {% if "Error" in message[1]: %}
+                            <div class="alert alert-warning">
+                                {{ message[1] }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+        <div class="collapse" id="collapseExample" >
+                <h3>Dự Báo Giao Thông</h3>
+                <form  action="" method="post" role="form" >
+                    {{ form.csrf }}
+                    <div class="form-group">
+                        <label for="name">Tọa độ điểm cần dự báo: </label>
+                        <input type="text" name="lng" id="lng" placeholder="Tọa độ X" />
+                        <input type="text" name="lat" id="lat" placeholder="Tọa độ Y" />
+                        <br>
+                        <label for="time">Thời gian dự báo:</label>
+                        <input type="text" id="time" name="time" placeholder="13:00">
+                    </div>  
+                    <button type="submit" class="btn btn-success">Dự báo</button>
+                </form>       
+            </div>
+        <div  id="map-canvas"/>
+    </body>
+</html>
